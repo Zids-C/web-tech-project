@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Reset Password</title>
+    <link rel="stylesheet" href="ress_pass.css">
+</head>
+<body>
+    <div class="password-reset-container">
+        <form id="passwordResetForm" action="#" method="post" onsubmit="return validateResetForm()">
+            <div class="form-header">
+                <h1>Reset Your Password</h1>
+                <p>Enter your email and we'll send you a link to reset your password</p>
+            </div>
+            
+            <div class="form-group">
+                <label for="email">Email Address</label>
+                <input type="email" id="email" name="email" required placeholder="Enter your registered email">
+                <p id="email-error" class="error-message"></p>
+            </div>
+            
+            <button type="submit" class="submit-btn">Send Reset Link</button>
+            
+            <div class="form-footer">
+                <p>Remember your password? <a href="login.html">Login here</a></p>
+            </div>
+        </form>
+    </div>
+
+    <script>
+        function validateResetForm() {
+            const email = document.getElementById('email').value;
+            const emailError = document.getElementById('email-error');
+            
+            // Reset error message
+            emailError.textContent = '';
+            
+            // Basic email validation
+            if (!email) {
+                emailError.textContent = 'Email is required';
+                return false;
+            }
+            
+            if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+                emailError.textContent = 'Please enter a valid email address';
+                return false;
+            }
+            
+            // In a real application, you would submit the form here
+            // For demo purposes, we'll just show a success message
+            alert('Password reset link has been sent to your email!');
+            return false; // Prevent actual form submission for this demo
+        }
+    </script>
+</body>
+</html>
