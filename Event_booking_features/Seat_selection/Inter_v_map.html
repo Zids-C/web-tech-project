@@ -55,8 +55,10 @@
             seat.dataset.type = type;
             seat.dataset.number = i + 1;
             
-            const left = 50 + Math.random() * 700;
-            const top = 50 + Math.random() * 400;
+            const row = Math.floor(i / 10);
+            const col = i % 10;
+            const left = 50 + col * 70;
+            const top = 50 + row * 70;
             seat.style.left = `${left}px`;
             seat.style.top = `${top}px`;
             
