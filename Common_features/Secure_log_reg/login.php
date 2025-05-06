@@ -1,3 +1,6 @@
+<?php
+session_start();
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -72,8 +75,10 @@
                                     strlen($password) >= 6) {
                                     
                                     echo "<span style='color:green;'>Login successful!</span>";
-                                    // Here you would typically check credentials against a database
-                                    // and redirect to a dashboard or home page
+                                    $_SESSION['user_email'] = $email;
+                                    header("Location: home.php"); 
+                                    exit();
+                                    
                                 }
                             }
                             ?>
