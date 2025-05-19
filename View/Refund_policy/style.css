@@ -1,0 +1,313 @@
+:root {
+    --primary-color: #4CAF50;
+    --primary-hover: #3e8e41;
+    --secondary-color: #2196F3;
+    --secondary-hover: #0b7dda;
+    --danger-color: #f44336;
+    --danger-hover: #d32f2f;
+    --dark-color: #2c3e50;
+    --light-color: #f8f9fa;
+    --border-radius: 8px;
+    --box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    --transition: all 0.3s ease;
+}
+
+/* Base Styles */
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #f5f7fa;
+    color: #333;
+    line-height: 1.6;
+    margin: 0;
+    padding: 20px;
+}
+
+.venue-container {
+    max-width: 1000px;
+    margin: 0 auto;
+    padding: 20px;
+}
+
+h1 {
+    color: var(--dark-color);
+    text-align: center;
+    margin-bottom: 30px;
+    font-size: 2.2rem;
+    position: relative;
+    padding-bottom: 15px;
+}
+
+h1::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 100px;
+    height: 4px;
+    background: var(--primary-color);
+    border-radius: 2px;
+}
+
+h2 {
+    color: var(--dark-color);
+    margin-bottom: 15px;
+    font-size: 1.5rem;
+}
+
+/* Navigation Bar */
+.nav-bar {
+    display: flex;
+    justify-content: center;
+    gap: 15px;
+    margin-bottom: 30px;
+    padding: 12px;
+    background-color: var(--dark-color);
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+}
+
+.nav-link {
+    color: white;
+    text-decoration: none;
+    padding: 10px 20px;
+    border-radius: var(--border-radius);
+    transition: var(--transition);
+    font-weight: 500;
+}
+
+.nav-link:hover {
+    background-color: #34495e;
+    transform: translateY(-2px);
+}
+
+.nav-link.active {
+    background-color: var(--primary-color);
+    box-shadow: 0 2px 8px rgba(76, 175, 80, 0.3);
+}
+
+/* Main Container */
+.refund-container {
+    background: white;
+    padding: 30px;
+    border-radius: var(--border-radius);
+    box-shadow: var(--box-shadow);
+    margin-bottom: 30px;
+}
+
+.refund-section {
+    margin-bottom: 30px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #eee;
+}
+
+.refund-section:last-child {
+    border-bottom: none;
+    margin-bottom: 0;
+    padding-bottom: 0;
+}
+
+/* Form Elements */
+.form-group {
+    margin-bottom: 20px;
+}
+
+.form-group label {
+    display: block;
+    margin-bottom: 8px;
+    font-weight: 500;
+    color: #555;
+}
+
+.form-group input,
+.form-group select,
+.form-group textarea {
+    width: 100%;
+    padding: 12px;
+    border: 1px solid #ddd;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    transition: var(--transition);
+}
+
+.form-group input:focus,
+.form-group select:focus,
+.form-group textarea:focus {
+    outline: none;
+    border-color: var(--primary-color);
+    box-shadow: 0 0 0 3px rgba(76, 175, 80, 0.2);
+}
+
+.cancellation-reason {
+    min-height: 120px;
+    resize: vertical;
+}
+
+/* Buttons */
+.refund-btn {
+    padding: 12px 24px;
+    background-color: var(--danger-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    display: inline-block;
+}
+
+.refund-btn:hover {
+    background-color: var(--danger-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.btn-pay {
+    padding: 10px 20px;
+    background-color: var(--primary-color);
+    color: white;
+    border: none;
+    border-radius: var(--border-radius);
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+    transition: var(--transition);
+    text-decoration: none;
+    display: inline-block;
+}
+
+.btn-pay:hover {
+    background-color: var(--primary-hover);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* Status Tracker */
+.status-tracker {
+    margin-top: 30px;
+    position: relative;
+    padding-left: 20px;
+}
+
+.status-tracker::before {
+    content: '';
+    position: absolute;
+    left: 15px;
+    top: 0;
+    bottom: 0;
+    width: 2px;
+    background: #ddd;
+    z-index: 1;
+}
+
+.status-step {
+    display: flex;
+    margin-bottom: 25px;
+    position: relative;
+    z-index: 2;
+}
+
+.status-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: 50%;
+    background-color: #ddd;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 20px;
+    flex-shrink: 0;
+    font-weight: bold;
+    transition: var(--transition);
+}
+
+.status-icon.active {
+    background-color: var(--primary-color);
+    color: white;
+    box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.2);
+}
+
+.status-details {
+    flex-grow: 1;
+    padding-bottom: 10px;
+}
+
+.status-date {
+    font-size: 0.85em;
+    color: #777;
+    margin-top: 5px;
+}
+
+/* Refund Deadlines */
+.refund-deadline {
+    display: flex;
+    justify-content: space-between;
+    padding: 15px;
+    border-radius: var(--border-radius);
+    margin: 10px 0;
+    transition: var(--transition);
+    align-items: center;
+}
+
+.deadline-ok {
+    background-color: #e8f5e9;
+    border-left: 4px solid var(--primary-color);
+}
+
+.deadline-passed {
+    background-color: #ffebee;
+    border-left: 4px solid var(--danger-color);
+}
+
+/* Success Messages */
+.refund-success {
+    background-color: #e8f5e9;
+    padding: 25px;
+    border-radius: var(--border-radius);
+    margin-top: 25px;
+    display: none;
+    animation: fadeIn 0.5s ease;
+    text-align: center;
+}
+
+.refund-success h2 {
+    color: var(--primary-color);
+    margin-top: 0;
+}
+
+.refund-success.active {
+    display: block;
+}
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(10px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+
+/* Responsive Design */
+@media (max-width: 768px) {
+    .nav-bar {
+        flex-direction: column;
+        gap: 10px;
+    }
+    
+    .refund-deadline {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 5px;
+    }
+    
+    .status-step {
+        flex-direction: column;
+    }
+    
+    .status-icon {
+        margin-bottom: 10px;
+    }
+    
+    .status-tracker::before {
+        left: 16px;
+    }
+}
