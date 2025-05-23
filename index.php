@@ -1,4 +1,4 @@
 <?php
-    header('Location: View/Secure_log_reg/login.php');
+    header('Location: View/Getting_started/Get_started.php');
     exit();
 ?>

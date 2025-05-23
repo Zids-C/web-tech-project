@@ -33,8 +33,8 @@
             <button type="submit" class="submit-btn">Send Reset Link</button>
             
             <div class="form-footer">
-                <p>Remember your password? <a href="../Controller/secure_log_reg.php?action=login">Sign in</a></p>
-                <p>Don't have an account? <a href="../Controller/secure_log_reg.php?action=signup">Sign up</a></p>
+                <p>Remember your password? <a href="/web-tech-project/Controller/secure_log_reg.php?action=login">Sign in</a></p>
+                <p>Don't have an account? <a href="/web-tech-project/Controller/secure_log_reg.php?action=signup">Sign up</a></p>
             </div>
             
             <?php

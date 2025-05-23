@@ -1,17 +1,22 @@
 <?php
 session_start();
 
+// Include the model files
+require_once '../Model/db.php';
+require_once '../Model/UserModel.php';
+
 class AuthController {
-    private $model;
+    private $userModel;
 
     public function __construct() {
-        require_once '../model/UserModel.php';
-        $this->model = new UserModel();
+        // Initialize the database connection and user model
+        $database = new Database();
+        $this->userModel = new UserModel($database);
     }
 
     // Handle login
     public function login() {
-        $remember_email = isset($_COOKIE['remember_email']) ? htmlspecialchars($_COOKIE['remember_email']) : '';
+        $remember_email = $_COOKIE['remember_email'] ?? '';
         
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $email = $_POST['email'] ?? '';
@@ -19,40 +24,22 @@ class AuthController {
             $remember = isset($_POST['remember']);
             
             // Validate email
-            $email_error = '';
-            if (empty($email)) {
-                $email_error = "Email can't be empty!";
-            } elseif (strpos($email, ' ') !== false) {
-                $email_error = "Email can't contain spaces!";
-            } elseif (substr_count($email, '@') != 1) {
-                $email_error = "Email must contain @!";
-            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $email_error = "Please enter a valid email address";
-            }
+            $email_error = $this->validateEmail($email);
             
             // Validate password
-            $password_error = '';
-            if (empty($password)) {
-                $password_error = "Password cannot be empty!";
-            } elseif (strlen($password) < 6) {
-                $password_error = "Password must be at least 6 characters!";
-            }
+            $password_error = $this->validatePassword($password);
             
             // If validation passes
             if (empty($email_error) && empty($password_error)) {
-                // Set cookie if "Remember Me" is checked
-                if ($remember) {
-                    setcookie('remember_email', $email, time() + (30 * 24 * 60 * 60), '/');
-                } else {
-                    if (isset($_COOKIE['remember_email'])) {
-                        setcookie('remember_email', '', time() - 3600, '/');
-                    }
-                }
+                // Authenticate user
+                $user = $this->userModel->authenticate($email, $password);
                 
-                // Authenticate user (would typically check against database)
-                if ($this->model->authenticate($email, $password)) {
+                if ($user) {
+                    // Set cookie if "Remember Me" is checked
+                    $this->handleRememberMe($remember, $email);
+                    
                     $_SESSION['user_email'] = $email;
-                    header("Location: ../view/home.php");
+                    header("Location: /web-tech-project/View/Secure_log_reg/dashboard.php");
                     exit();
                 } else {
                     $password_error = "Invalid email or password";
@@ -89,38 +76,14 @@ class AuthController {
             ];
             
             // Validate data
-            $errors = [];
-            $required = ['first_name', 'last_name', 'address', 'email', 'password', 'confirm_password'];
-            
-            foreach ($required as $field) {
-                if (empty($data[$field])) {
-                    $errors[$field . '_error'] = ucfirst(str_replace('_', ' ', $field)) . " is required!";
-                }
-            }
-            
-            if (!empty($data['email']) && strpos($data['email'], ' ') !== false) {
-                $errors['email_error'] = "Email can't contain spaces!";
-            }
-            
-            if (!empty($data['email']) && !filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-                $errors['email_error'] = "Please enter a valid email address";
-            }
-            
-            if (!empty($data['password']) && strlen($data['password']) < 8) {
-                $errors['password_error'] = "Password must be at least 8 characters!";
-            }
-            
-            if (!empty($data['password']) && $data['password'] !== $data['confirm_password']) {
-                $errors['confirm_password_error'] = "Passwords don't match!";
-            }
+            $errors = $this->validateSignupData($data);
             
             // If validation passes
             if (empty($errors)) {
-                if ($this->model->createUser($data)) {
+                if ($this->userModel->createUser($data)) {
                     return ['success' => true];
-                } else {
-                    $errors['general_error'] = "Registration failed. Please try again.";
                 }
+                $errors['general_error'] = "Registration failed. Please try again.";
             }
             
             return array_merge($data, $errors);
@@ -133,17 +96,15 @@ class AuthController {
     public function forgotPassword() {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $email = $_POST['email'] ?? '';
-            $email_error = '';
-            
-            if (empty($email)) {
-                $email_error = "Email address is required";
-            } elseif (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
-                $email_error = "Please enter a valid email address";
-            }
+            $email_error = $this->validateEmail($email);
             
             if (empty($email_error)) {
-                // In a real app, send reset link here
-                return ['success' => true, 'email' => $email];
+                // Check if email exists
+                if ($this->userModel->emailExists($email)) {
+                    // In a real app, send reset link here
+                    return ['success' => true, 'email' => $email];
+                }
+                $email_error = "No account found with this email";
             }
             
             return ['email' => $email, 'email_error' => $email_error];
@@ -154,7 +115,119 @@ class AuthController {
 
     // Handle reset password
     public function resetPassword() {
-        return $this->forgotPassword(); // Similar logic for this example
+        if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+            $data = [
+                'email' => $_POST['email'] ?? '',
+                'new_password' => $_POST['new_password'] ?? '',
+                'confirm_password' => $_POST['confirm_password'] ?? ''
+            ];
+            
+            // Validate data
+            $errors = $this->validateResetData($data);
+            
+            // If validation passes
+            if (empty($errors)) {
+                if ($this->userModel->updatePassword($data['email'], $data['new_password'])) {
+                    return array_merge($data, ['success' => true]);
+                }
+                $errors['general_error'] = "Password reset failed. Please try again.";
+            }
+            
+            return array_merge($data, $errors);
+        }
+        
+        return [];
+    }
+
+    // ==================== HELPER METHODS ====================
+    
+    private function validateEmail(string $email): string {
+        if (empty($email)) {
+            return "Email can't be empty!";
+        }
+        if (strpos($email, ' ') !== false) {
+            return "Email can't contain spaces!";
+        }
+        if (substr_count($email, '@') != 1) {
+            return "Email must contain @!";
+        }
+        if (!filter_var($email, FILTER_VALIDATE_EMAIL)) {
+            return "Please enter a valid email address";
+        }
+        return '';
+    }
+
+    private function validatePassword(string $password): string {
+        if (empty($password)) {
+            return "Password cannot be empty!";
+        }
+        if (strlen($password) < 6) {
+            return "Password must be at least 6 characters!";
+        }
+        return '';
+    }
+
+    private function validateSignupData(array $data): array {
+        $errors = [];
+        $required = ['first_name', 'last_name', 'email', 'password', 'confirm_password'];
+        
+        foreach ($required as $field) {
+            if (empty($data[$field])) {
+                $errors[$field . '_error'] = ucfirst(str_replace('_', ' ', $field)) . " is required!";
+            }
+        }
+        
+        if (!empty($data['email'])) {
+            $emailError = $this->validateEmail($data['email']);
+            if ($emailError) {
+                $errors['email_error'] = $emailError;
+            }
+        }
+        
+        if (!empty($data['password']) && strlen($data['password']) < 8) {
+            $errors['password_error'] = "Password must be at least 8 characters!";
+        }
+        
+        if (!empty($data['password']) && $data['password'] !== $data['confirm_password']) {
+            $errors['confirm_password_error'] = "Passwords don't match!";
+        }
+        
+        return $errors;
+    }
+
+    private function validateResetData(array $data): array {
+        $errors = [];
+        
+        if (empty($data['email'])) {
+            $errors['email_error'] = "Email address is required";
+        } else {
+            $emailError = $this->validateEmail($data['email']);
+            if ($emailError) {
+                $errors['email_error'] = $emailError;
+            }
+        }
+        
+        if (empty($data['new_password'])) {
+            $errors['password_error'] = "Password is required";
+        } elseif (strlen($data['new_password']) < 8) {
+            $errors['password_error'] = "Password must be at least 8 characters";
+        }
+        
+        if (empty($data['confirm_password'])) {
+            $errors['confirm_password_error'] = "Please confirm your password";
+        } elseif ($data['new_password'] !== $data['confirm_password']) {
+            $errors['confirm_password_error'] = "Passwords do not match";
+        }
+        
+        return $errors;
+    }
+
+    private function handleRememberMe(bool $remember, string $email): void {
+        if ($remember) {
+            setcookie('remember_email', $email, time() + (30 * 24 * 60 * 60), '/');
+        } elseif (isset($_COOKIE['remember_email'])) {
+            setcookie('remember_email', '', time() - 3600, '/');
+        }
     }
 }
 
