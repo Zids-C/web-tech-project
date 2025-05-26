@@ -1,6 +1,12 @@
 <?php
-// Start session and retrieve previous step data
 session_start();
+if (!isset($_SESSION['user_email'])) {
+    header("Location: /web-tech-project/View/Secure_log_reg/login.php");
+    exit();
+}
+?>
+<?php
+// Start session and retrieve previous step data
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['export_data'] = [
         'source' => $_POST['export-source'],

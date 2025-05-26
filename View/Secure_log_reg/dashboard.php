@@ -1,7 +1,7 @@
 <?php
 session_start();
 if (!isset($_SESSION['user_email'])) {
-    header("Location: Secure_log_reg/login.php");
+    header("Location: /web-tech-project/View/Secure_log_reg/login.php");
     exit();
 }
 ?>
@@ -18,7 +18,7 @@ if (!isset($_SESSION['user_email'])) {
         <header>
             <h1>Welcome, <?php echo htmlspecialchars($_SESSION['user_email']); ?></h1>
             <div class="logout-container">
-                <a href="/web-tech-project/View/Secure_log_reg/login.php" class="logout-btn">Logout</a>
+                <a href="/web-tech-project/Controller/logout.php" class="logout-btn">Logout</a>
             </div>
         </header>
 

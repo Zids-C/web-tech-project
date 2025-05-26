@@ -1,5 +1,11 @@
 <?php
 session_start();
+if (!isset($_SESSION['user_email'])) {
+    header("Location: /web-tech-project/View/Secure_log_reg/login.php");
+    exit();
+}
+?>
+<?php
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $_SESSION['export_data']['delivery_method'] = $_POST['delivery-method'];
     

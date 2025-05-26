@@ -1,4 +1,11 @@
 <!-- system-settings.html -->
+ <?php
+session_start();
+if (!isset($_SESSION['user_email'])) {
+    header("Location: /web-tech-project/View/Secure_log_reg/login.php");
+    exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="en">
 <head>
