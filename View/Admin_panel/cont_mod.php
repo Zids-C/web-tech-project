@@ -43,6 +43,19 @@
                 <div class="tab active" data-tab="posts">Posts</div>
                 <div class="tab" data-tab="comments">Comments</div>
                 <div class="tab" data-tab="reports">Reports</div>
+                <div class="tab" data-tab="reports">
+                    <button class="btn btn-primary" 
+                        onclick="window.location.href='/web-tech-project/View/Email_alert/notification_center.php'">
+                        Email alert
+                    </button>
+                </div>
+                <div class="tab" data-tab="reports">
+                    <button class="btn btn-primary" 
+                        onclick="window.location.href='/web-tech-project/View/Check_in_system/Atn_lookup.php'">
+                        Check in
+                    </button>
+                </div>
+
             </div>
 
             <div class="tab-content active" id="posts">
@@ -218,6 +231,7 @@
                     </div>
                 </div>
             </div>
+            
         </div>
     </div>
 

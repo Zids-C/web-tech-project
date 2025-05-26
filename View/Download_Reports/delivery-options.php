@@ -85,7 +85,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         </form>
     </div>
 
-    <script src="../../Controller/export-script.js"></script>
+    <script src="/web-tech-project/Controller/export-script.js"></script>
     <script>
         // Show/hide scheduling options
         document.querySelectorAll('input[name="delivery-method"]').forEach(radio => {

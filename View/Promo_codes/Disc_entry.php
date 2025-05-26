@@ -12,6 +12,7 @@
             <a href="Disc_entry.php" class="nav-link active">Apply Code</a>
             <a href="Code_gen.php" class="nav-link">Generate Code</a>
             <a href="Red_analytics.php" class="nav-link">Analytics</a>
+            <a href="/web-tech-project/View/Refund_policy/Terms.php" class="nav-link">Refund policy</a>
         </div>
         
         <h1>Apply Promo Code</h1>
@@ -23,7 +24,7 @@
                 
                 <div class="promo-input">
                     <input type="text" id="promoCode" placeholder="Enter promo code">
-                    <button class="promo-btn" id="applyCode">Apply</button>
+                    <button class="promo-btn" onclick="window.location.href='/web-tech-project/View/Payment_processing/Checkout_flow.php'" id="applyCode">Apply</button>
                 </div>
                 
                 <div class="promo-success" id="promoSuccess">

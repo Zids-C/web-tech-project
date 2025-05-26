@@ -49,7 +49,7 @@ $exportData = $_SESSION['export_data'];
         </div>
     </div>
 
-    <script src="../../Controller/export-script.js"></script>
+    <script src="/web-tech-project/Controller/export-script.js"></script>
     <script>
         document.getElementById('download-btn')?.addEventListener('click', function() {
             alert(`Downloading <?= strtoupper($exportData['format']) ?> export of <?= $exportData['source'] ?> from <?= $exportData['start_date'] ?> to <?= $exportData['end_date'] ?>`);

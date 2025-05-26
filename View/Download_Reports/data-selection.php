@@ -52,7 +52,7 @@
         </form>
     </div>
 
-    <script src="../../Controller/export-script.js"></script>
+    <script src="/web-tech-project/Controller/export-script.js"></script>
     <script>
         // Set default dates
         window.onload = function() {

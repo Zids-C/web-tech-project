@@ -12,6 +12,7 @@
             <a href="Disc_entry.php" class="nav-link">Apply Code</a>
             <a href="Code_gen.php" class="nav-link active">Generate Code</a>
             <a href="Red_analytics.php" class="nav-link">Analytics</a>
+            <a href="/web-tech-project/View/Refund_policy/Terms.php" class="nav-link">Refund policy</a>
         </div>
         
         <h1>Promo Code Generator</h1>

@@ -8,17 +8,21 @@
 </head>
 <body>
     <div class="venue-container">
-        <!-- NEW NAVIGATION BAR -->
+        <!-- NAVIGATION BAR -->
         <div class="nav-bar">
             <a href="Inter_v_map.php" class="nav-link active">Venue Map</a>
             <a href="Seat_zoom.php" class="nav-link">Seat Zoom</a>
             <a href="Ac_filter.php" class="nav-link">Accessibility</a>
         </div>
         
-        <!-- NEW STATUS BAR -->
+        <!-- STATUS BAR -->
         <div class="status-bar">
             <span>Selected seats: <span class="selected-seats" id="selectedSeats">None</span></span>
             <span>Total: $<span id="totalPrice">0</span></span>
+            <button class="Payment-btn" 
+                    onclick="window.location.href='/web-tech-project/View/Promo_codes/Disc_entry.php'">
+                    Pay now
+            </button>
         </div>
         
         <h1>Interactive Venue Map</h1>

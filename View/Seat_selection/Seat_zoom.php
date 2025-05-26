@@ -19,6 +19,10 @@
         <div class="status-bar">
             <span>Selected seats: <span class="selected-seats" id="selectedSeats">None</span></span>
             <span>Total: $<span id="totalPrice">0</span></span>
+            <button class="Payment-btn" 
+                    onclick="window.location.href='/web-tech-project/View/Promo_codes/Disc_entry.php'">
+                    Pay now
+            </button>
         </div>
         
         <h1>Seat Zoom</h1>
