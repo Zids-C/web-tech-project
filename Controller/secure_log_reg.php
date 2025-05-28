@@ -252,6 +252,10 @@ switch ($action) {
         $data = $controller->resetPassword();
         require '../view/Secure_log_reg/res_pass.php';
         break;
+    case 'verify-code':
+        $data = $controller->resetPassword();
+        require '../view/Secure_log_reg/.php';
+        break;
     default:
         header("Location: ../view/Secure_log_reg/login.php");
         exit();

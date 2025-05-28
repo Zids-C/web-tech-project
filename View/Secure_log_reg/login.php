@@ -14,7 +14,7 @@
                 <tr>
                     <td colspan="2">
                         <h2>Login to Your Account</h2>
-                        <p>Don't have an account? <a href="/web-tech-project/Controller/secure_log_reg.php?action=signup">Sign up</a> or <a href="/web-tech-project/Controller/secure_log_reg.php?action=reset-password">reset password</a></p>
+                        <p>Don't have an account? <a href="/web-tech-project/Controller/secure_log_reg.php?action=signup">Sign up</a>
                     </td>
                 </tr>
                 <tr>
@@ -43,7 +43,7 @@
                             <label for="remember">Remember me</label>
                         </div>
                         <input type="submit" value="login">
-                        <p><a href="/web-tech-project/Controller/secure_log_reg.php?action=forgot-password">Forgot Password?</a></p>
+                        <p><a href="/web-tech-project/View/Secure_log_reg/fr_pass.php">Forgot Password?</a></p>
                     </td>
                 </tr>
             </table>

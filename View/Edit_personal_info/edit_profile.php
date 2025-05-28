@@ -4,6 +4,20 @@ if (!isset($_SESSION['user_email'])) {
     header("Location: /web-tech-project/View/Secure_log_reg/login.php");
     exit();
 }
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $_SESSION['full_name'] = $_POST['fullName'];
+    $_SESSION['email'] = $_POST['email'];
+    $_SESSION['bio'] = $_POST['bio'];
+    header("Location: view_profile.php");
+    exit();
+}
+
+// Initialize session variables if not set
+if (!isset($_SESSION['full_name'])) $_SESSION['full_name'] = 'Osman';
+if (!isset($_SESSION['email'])) $_SESSION['email'] = 'user@example.com';
+if (!isset($_SESSION['bio'])) $_SESSION['bio'] = '';
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -22,20 +36,20 @@ if (!isset($_SESSION['user_email'])) {
             </div>
         </div>
 
-        <form id="editProfileForm" class="profile-form">
+        <form id="editProfileForm" class="profile-form" method="POST" action="edit_profile.php">
             <div class="form-group">
                 <label for="fullName">Full Name</label>
-                <input type="text" id="fullName" required placeholder="Name">
+                <input type="text" id="fullName" name="fullName" required placeholder="Name" value="<?php echo htmlspecialchars($_SESSION['full_name']); ?>">
             </div>
 
             <div class="form-group">
                 <label for="email">Email Address</label>
-                <input type="email" id="email" required placeholder="your@email.com">
+                <input type="email" id="email" name="email" required placeholder="your@email.com" value="<?php echo htmlspecialchars($_SESSION['email']); ?>">
             </div>
 
             <div class="form-group">
                 <label for="bio">Bio</label>
-                <textarea id="bio" rows="4" required placeholder="about yourself"></textarea>
+                <textarea id="bio" name="bio" rows="4" required placeholder="about yourself"><?php echo htmlspecialchars($_SESSION['bio']); ?></textarea>
             </div>
 
             <div class="form-actions">
@@ -44,14 +58,5 @@ if (!isset($_SESSION['user_email'])) {
             </div>
         </form>
     </div>
-
-    <script>
-        document.getElementById('editProfileForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            // In a real app, you would save the changes here
-            alert('Profile updated successfully!');
-            window.location.href = 'view_profile.php';
-        });
-    </script>
 </body>
 </html>
