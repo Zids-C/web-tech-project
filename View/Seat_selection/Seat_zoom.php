@@ -47,6 +47,10 @@ if (!isset($_SESSION['user_email'])) {
         <div class="seat-map" id="seatMap" style="transform-origin: center center; transform: scale(1);">
             <div class="seat-tooltip" id="seatTooltip"></div>
         </div>
+        <button class="filter-btn" 
+                    onclick="window.location.href='../Secure_log_reg/dashboard.php'">
+                    Dashboard
+        </button>
     </div>
 
     <script src="/web-tech-project/Controller/sit_zoom_con.js"></script>

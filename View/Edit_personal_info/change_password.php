@@ -1,8 +1,48 @@
 <?php
 session_start();
+require_once '../../Model/UserModel.php';
+require_once '../../Model/db.php';
+
 if (!isset($_SESSION['user_email'])) {
     header("Location: /web-tech-project/View/Secure_log_reg/login.php");
     exit();
+}
+
+$database = new Database();
+$userModel = new UserModel($database);
+$error = '';
+$success = '';
+
+// Handle form submission
+if ($_SERVER['REQUEST_METHOD'] === 'POST') {
+    $currentPassword = $_POST['currentPassword'] ?? '';
+    $newPassword = $_POST['newPassword'] ?? '';
+    $confirmPassword = $_POST['confirmPassword'] ?? '';
+    $email = $_SESSION['user_email'];
+
+    // Validate inputs
+    if (empty($currentPassword)) {
+        $error = 'Current password is required';
+    } elseif (empty($newPassword)) {
+        $error = 'New password is required';
+    } elseif (strlen($newPassword) < 8) {
+        $error = 'Password must be at least 8 characters long';
+    } elseif ($newPassword !== $confirmPassword) {
+        $error = 'Passwords do not match';
+    } else {
+        // Verify current password
+        $user = $userModel->getUserByEmail($email);
+        if ($user && password_verify($currentPassword, $user['password'])) {
+            // Update password
+            if ($userModel->updatePassword($email, $newPassword)) {
+                $success = 'Password changed successfully!';
+            } else {
+                $error = 'Failed to update password. Please try again.';
+            }
+        } else {
+            $error = 'Current password is incorrect';
+        }
+    }
 }
 ?>
 <!DOCTYPE html>
@@ -22,21 +62,29 @@ if (!isset($_SESSION['user_email'])) {
             </div>
         </div>
 
-        <form id="changePasswordForm" class="profile-form">
+        <?php if ($error): ?>
+            <div class="alert error"><?php echo htmlspecialchars($error); ?></div>
+        <?php endif; ?>
+        
+        <?php if ($success): ?>
+            <div class="alert success"><?php echo htmlspecialchars($success); ?></div>
+        <?php endif; ?>
+
+        <form id="changePasswordForm" class="profile-form" method="POST">
             <div class="form-group">
                 <label for="currentPassword">Current Password</label>
-                <input type="password" id="currentPassword" required>
+                <input type="password" id="currentPassword" name="currentPassword" required>
             </div>
 
             <div class="form-group">
                 <label for="newPassword">New Password</label>
-                <input type="password" id="newPassword" required>
+                <input type="password" id="newPassword" name="newPassword" required>
                 <div class="password-hint">Must be at least 8 characters long</div>
             </div>
 
             <div class="form-group">
                 <label for="confirmPassword">Confirm New Password</label>
-                <input type="password" id="confirmPassword" required>
+                <input type="password" id="confirmPassword" name="confirmPassword" required>
             </div>
 
             <div class="form-actions">
@@ -45,27 +93,5 @@ if (!isset($_SESSION['user_email'])) {
             </div>
         </form>
     </div>
-
-    <script>
-        document.getElementById('changePasswordForm').addEventListener('submit', function(e) {
-            e.preventDefault();
-            const newPassword = document.getElementById('newPassword').value;
-            const confirmPassword = document.getElementById('confirmPassword').value;
-            
-            if (newPassword !== confirmPassword) {
-                alert('Passwords do not match!');
-                return;
-            }
-            
-            if (newPassword.length < 8) {
-                alert('Password must be at least 8 characters long');
-                return;
-            }
-            
-            // In a real app, you would update the password here
-            alert('Password changed successfully!');
-            window.location.href = 'view_profile.php';
-        });
-    </script>
 </body>
 </html>

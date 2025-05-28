@@ -7,7 +7,7 @@ if (!isset($_SESSION['user_email'])) {
 
 // Initialize session variables if not set
 if (!isset($_SESSION['full_name'])) $_SESSION['full_name'] = 'Osman';
-if (!isset($_SESSION['email'])) $_SESSION['email'] = 'user@example.com';
+if (!isset($_SESSION['user_email'])) $_SESSION['email'] = 'user@example.com';
 if (!isset($_SESSION['avatar'])) $_SESSION['avatar'] = 'default_avatar.jpg';
 if (!isset($_SESSION['user_id'])) $_SESSION['user_id'] = '22-48675-3';
 if (!isset($_SESSION['join_date'])) $_SESSION['join_date'] = 'January 2023';
@@ -46,7 +46,7 @@ if (!isset($_SESSION['bio'])) $_SESSION['bio'] = '';
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">Email:</span>
-                    <span class="detail-value" id="profile-email"><?php echo htmlspecialchars($_SESSION['email']); ?></span>
+                    <span class="detail-value" id="profile-email"><?php echo htmlspecialchars($_SESSION['user_email']); ?></span>
                 </div>
                 <div class="detail-row">
                     <span class="detail-label">User ID:</span>
@@ -56,6 +56,9 @@ if (!isset($_SESSION['bio'])) $_SESSION['bio'] = '';
                     <span class="detail-label">Member Since:</span>
                     <span class="detail-value" id="profile-join-date"><?php echo htmlspecialchars($_SESSION['join_date']); ?></span>
                 </div>
+                <br>
+                <br>
+                <a href="../Secure_log_reg/dashboard.php" class="btn">Dashboard</a>
                 <?php if (!empty($_SESSION['bio'])): ?>
                 <div class="detail-row">
                     <span class="detail-label">Bio:</span>

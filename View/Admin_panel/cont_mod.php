@@ -238,8 +238,15 @@ if (!isset($_SESSION['user_email'])) {
                     </div>
                 </div>
             </div>
+            <div class="tab" data-tab="reports">
+                    <button class="btn btn-primary" 
+                        onclick="window.location.href='../Secure_log_reg/dashboard.php'">
+                        Dashboard
+                    </button>
+            </div>
             
         </div>
+        
     </div>
 
     <script>

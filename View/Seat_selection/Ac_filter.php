@@ -46,6 +46,10 @@ if (!isset($_SESSION['user_email'])) {
         <div class="seat-map" id="seatMap">
             <div class="seat-tooltip" id="seatTooltip"></div>
         </div>
+        <button class="filter-btn" 
+                    onclick="window.location.href='../Secure_log_reg/dashboard.php'">
+                    Dashboard
+        </button>
     </div>
 
     <script src="/web-tech-project/Controller/ac_filter.js"></script>
