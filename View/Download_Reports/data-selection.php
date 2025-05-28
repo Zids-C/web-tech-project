@@ -15,6 +15,10 @@ if (!isset($_SESSION['user_email'])) {
 </head>
 <body>
     <div class="export-container">
+        <div class="dashboard-link">
+                <button type="submit" class="btn btn-next" onclick="window.location.href='../Secure_log_reg/dashboard.php'">
+                        Dashboard</button>
+        </div>
         <div class="export-header">
             <h1><span class="export-icon">📊</span> Data Export</h1>
             <p class="subtitle">Step 1: Select your data range</p>
@@ -56,7 +60,9 @@ if (!isset($_SESSION['user_email'])) {
             <div class="wizard-actions">
                 <button type="submit" class="btn btn-next">Next</button>
             </div>
+            
         </form>
+        
     </div>
 
     <script src="/web-tech-project/Controller/export-script.js"></script>

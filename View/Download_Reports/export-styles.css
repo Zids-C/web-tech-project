@@ -415,3 +415,11 @@ input[type="radio"]:checked + .radio-custom::after {
     background: var(--success-color);
     color: white;
 }
+.dashboard-link {
+    display: inline-block;
+    margin-top: 1rem;
+    margin-left: auto; /* Pushes element to the right */
+    color: var(--primary-color);
+    text-decoration: none;
+    font-weight: 500;
+}
