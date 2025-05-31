@@ -167,15 +167,14 @@ input[type="submit"]:active,
     transform: translateY(0);
 }
 
-/* Special button for signup */
 #auth input[type="submit"] {
-    background-color: #28a745;
+    background-color: #6a5acd;
     text-transform: uppercase;
     letter-spacing: 0.5px;
 }
 
 #auth input[type="submit"]:hover {
-    background-color: #218838;
+    background-color: #51459e;
 }
 
 /* ==================== */

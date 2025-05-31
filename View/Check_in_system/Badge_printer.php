@@ -19,6 +19,7 @@ if (!isset($_SESSION['user_email'])) {
             <a href="QR_scan.php" class="nav-link">QR Scanner</a>
             <a href="Atn_lookup.php" class="nav-link">Attendee Lookup</a>
             <a href="Badge_printer.php" class="nav-link active">Badge Printer</a>
+            <a href="/web-tech-project/View/Admin_panel/cont_mod.php" class="nav-link">Admin panel</a>
         </div>
         
         <h1>Print On-Site Badges</h1>

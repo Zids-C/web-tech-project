@@ -23,12 +23,6 @@ if (!isset($_SESSION['user_email'])) {
         </header>
 
         <div class="modules-grid">
-            <!-- Admin Panel Module -->
-            <div class="module-card">
-                <h2>Admin Panel</h2>
-                <p>Access administrative functions</p>
-                <a href="/web-tech-project/View/Admin_panel/cont_mod.php" class="module-btn">Go to Admin Panel</a>
-            </div>
 
             <!-- Edit Personal Info Module -->
             <div class="module-card">

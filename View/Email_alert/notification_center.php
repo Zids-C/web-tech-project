@@ -85,7 +85,7 @@ if (!isset($_SESSION['user_email'])) {
         </div>
 
         <div class="notification-footer">
-            <button class="btn load-more">Load More</button>
+            <button class="btn load-more" onclick='window.location.href="/web-tech-project/View/Admin_panel/cont_mod.php"'>Return</button>
         </div>
     </div>
 

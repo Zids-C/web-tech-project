@@ -418,8 +418,9 @@ input[type="radio"]:checked + .radio-custom::after {
 .dashboard-link {
     display: inline-block;
     margin-top: 1rem;
-    margin-left: auto; /* Pushes element to the right */
+    margin-left: auto; 
     color: var(--primary-color);
     text-decoration: none;
     font-weight: 500;
+    align-content: center;
 }

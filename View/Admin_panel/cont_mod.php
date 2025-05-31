@@ -1,7 +1,7 @@
 <!-- content-moderation.html -->
  <?php
 session_start();
-if (!isset($_SESSION['user_email'])) {
+if (!isset($_SESSION['user_email']) || !isset($_SESSION['admin'])) {
     header("Location: /web-tech-project/View/Secure_log_reg/login.php");
     exit();
 }
@@ -35,10 +35,10 @@ if (!isset($_SESSION['user_email'])) {
             <div class="header">
                 <h1>Content Moderation</h1>
                 <div class="user-actions">
-                    <div class="user-profile">
-                        <img src="https://via.placeholder.com/40" alt="Admin User">
-                        <span>Admin</span>
-                    </div>
+                    <button class="btn btn-sm btn-danger" 
+                        onclick="window.location.href='/web-tech-project/Controller/logout.php'">
+                        Logout
+                    </button>
                 </div>
             </div>
 

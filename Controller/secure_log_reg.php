@@ -21,6 +21,7 @@ class AuthController {
         if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             $email = $_POST['email'] ?? '';
             $password = $_POST['password'] ?? '';
+            
             $remember = isset($_POST['remember']);
             
             // Validate email
@@ -31,18 +32,26 @@ class AuthController {
             
             // If validation passes
             if (empty($email_error) && empty($password_error)) {
-                // Authenticate user
-                $user = $this->userModel->authenticate($email, $password);
-                
-                if ($user) {
-                    // Set cookie if "Remember Me" is checked
-                    $this->handleRememberMe($remember, $email);
-                    
+                if($email == "admin@gmail.com" && $password == "admin123") {
                     $_SESSION['user_email'] = $email;
-                    header("Location: /web-tech-project/View/Secure_log_reg/dashboard.php");
+                    $_SESSION['admin'] = true;
+                    // Redirect to admin dashboard
+                    header("Location: /web-tech-project/View/Admin_panel/cont_mod.php");
                     exit();
                 } else {
-                    $password_error = "Invalid email or password";
+                    // Authenticate user
+                    $user = $this->userModel->authenticate($email, $password);
+
+                    if ($user) {
+                        // Set cookie if "Remember Me" is checked
+                        $this->handleRememberMe($remember, $email);
+
+                        $_SESSION['user_email'] = $email;
+                        header("Location: /web-tech-project/View/Secure_log_reg/dashboard.php");
+                        exit();
+                    } else {
+                        $password_error = "Invalid email or password";
+                    }
                 }
             }
             

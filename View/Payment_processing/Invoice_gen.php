@@ -12,6 +12,9 @@ if (!isset($_SESSION['user_email'])) {
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Invoice Generator</title>
     <link rel="stylesheet" href="style.css">
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jspdf/2.5.1/jspdf.umd.min.js"></script>
+    
+
 </head>
 <body>
     <div class="venue-container">
@@ -69,6 +72,10 @@ if (!isset($_SESSION['user_email'])) {
                 <button class="btn-pay" id="emailInvoice" style="background-color: #4CAF50; margin-top: 10px;">
                     Email Invoice
                 </button>
+                <button class="btn-pay" id="emailInvoice" style="background-color: #4CAF50; margin-top: 10px;"
+                    onclick="window.location.href='/web-tech-project/View/Secure_log_reg/dashboard.php'">
+                    Return to Dashboard
+                </button>
             </div>
             
             <div class="ticket-confirmation active" style="margin-top: 30px;">
@@ -82,46 +89,7 @@ if (!isset($_SESSION['user_email'])) {
             </div>
         </div>
     </div>
-
-    <script>
-        // Load transaction data from sessionStorage
-        const transaction = JSON.parse(sessionStorage.getItem('lastTransaction')) || {};
-        const selectedSeats = transaction.seats || [];
-        
-        // Update invoice details
-        document.getElementById('invoiceDate').textContent = transaction.date || new Date().toLocaleString();
-        document.getElementById('orderNumber').textContent = '#' + Math.floor(Math.random() * 1000000);
-        
-        const seatsList = document.getElementById('seatsList');
-        let subtotal = 0;
-        
-        if (selectedSeats.length > 0) {
-            selectedSeats.forEach(seat => {
-                const seatRow = document.createElement('div');
-                seatRow.className = 'invoice-row';
-                seatRow.innerHTML = `<span>Seat ${seat}:</span> <span>$50.00</span>`;
-                seatsList.appendChild(seatRow);
-                subtotal += 50;
-            });
-        } else {
-            seatsList.innerHTML = '<div class="invoice-row"><span>No seats selected</span></div>';
-        }
-        
-        document.getElementById('subtotal').textContent = '$' + subtotal.toFixed(2);
-        document.getElementById('totalAmount').textContent = '$' + (subtotal + 5).toFixed(2);
-        
-        // Button functionality
-        document.getElementById('downloadInvoice').addEventListener('click', () => {
-            alert('Invoice download started!');
-        });
-        
-        document.getElementById('emailInvoice').addEventListener('click', () => {
-            alert('Invoice sent to your email!');
-        });
-        
-        document.getElementById('downloadTickets').addEventListener('click', () => {
-            alert('Tickets downloaded!');
-        });
-    </script>
+    <script src="/web-tech-project/Controller/pdf_gen.js"></script>
+    
 </body>
 </html>

@@ -43,6 +43,7 @@ $email = $_SESSION['reset_email'];
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Reset Password</title>
     <link rel="stylesheet" href="/web-tech-project/view/Secure_log_reg/styles.css">
+    <script src="/web-tech-project/Controller/pass_res_val.js" ></script>
 </head>
 <body>
     <div class="form-container">

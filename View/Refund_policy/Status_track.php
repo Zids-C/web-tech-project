@@ -19,6 +19,7 @@ if (!isset($_SESSION['user_email'])) {
             <a href="Terms.php" class="nav-link">Policy</a>
             <a href="Cancel_req.php" class="nav-link">Request</a>
             <a href="Status_track.php" class="nav-link active">Status</a>
+            <a href="/web-tech-project/View/Promo_codes/Disc_entry.php" class="nav-link">Payment</a>
         </div>
         
         <h1>Request Status Tracker</h1>
